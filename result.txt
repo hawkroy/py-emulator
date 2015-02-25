@@ -1,0 +1,26 @@
+[
+{'PARAMETER': 
+    [
+        {'ULPMC_BOOT_DELAY': 1}, {'BIOS_BOOT_DELAY': 1}
+    ]
+}, 
+{'RESOURCE': 
+    [
+        {'STICK_AOS': 0}, {'SELECT_GPI': 0}, {'BIOS_GPO': 1}, {'OS_FLAG': 0}
+    ]
+}, 
+{'ENTITY': 
+    ['"ULPMC"', 
+        [
+            ['CONDITION', ['==', 'STICK_AOS', 1], 1, 3, 6], ['SET', 'OS_FLAG', 1], ['SET', 'BIOS_GPO', 1], ['CONDITION', ['==', 'SELECT_GPI', 1], 1, 3, 3], ['SET', 'OS_FLAG', 1], ['SET', 'BIOS_GPO', 1], ['SET', 'OS_FLAG', 0], ['SET', 'BIOS_GPO', 0], ['COMMAND', 'STOP_ENTITY']
+        ]
+    ]
+}, 
+{'ENTITY': 
+    ['"BIOS"', 
+        [
+            ['CONDITION', ['==', 'BIOS_GPO', 0], 1, 13, 11], ['PRINT', 'ENTER UEFI BIOS'], ['CONDITION', ['==', 'SELECT_GPI', 1], 1, 4, 1], ['PRINT', 'WRONG PATH DUE TO GPIO, REBOOT'], ['SET', 'STICK_AOS', 1], ['COMMAND', 'REBOOT'], ['CONDITION', ['==', 'OS_FLAG', 1], 1, 4, 3], ['PRINT', 'WRONG PATH DUE TO OS_FLAG, REBOOT'], ['SET', 'STICK_AOS', 1], ['COMMAND', 'REBOOT'], ['CONDITION', ['==', 'OS_TYPE', 1], 1, 2, 1], ['SET', 'STICK_AOS', 1], ['COMMAND', 'HALT'], ['PRINT', 'ENTER IAFW32 BIOS'], ['CONDITION', ['==', 'OS_FLAG', 0], 1, 3, 1], ['PRINT', 'WRONG PATH DUE TO OS_FLAG, REBOOT'], ['COMMAND', 'REBOOT'], ['SET', 'STICK_AOS', 0], ['CONDITION', ['==', 'ANDROID_S3', 1], 1, 4, 1], ['PRINT', 'ANDROID S3 PATH'], ['SET', 'STICK_AOS', 1], ['COMMAND', 'REBOOT'], ['COMMAND', 'HALT'], ['COMMAND', 'STOP_ENTITY']
+        ]
+    ]
+}
+]
